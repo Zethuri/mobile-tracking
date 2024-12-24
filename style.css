@@ -44,6 +44,7 @@ body{
     align-items: center;
     height: 500px;
     width: 70%;
+    animation: fadeOut 3s forwards;
 }
 
 .landing-section{
@@ -55,12 +56,25 @@ body{
     flex-direction: column;
     gap: 40px;
 }
-
-h1{
+    .landing-section h1{
     font-family: sans-serif;
     color: rgb(223, 241, 232);
     font-size: 30px;
 }
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 0.1;
+      }
+      100% {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+
 
 @media (max-width: 390px) {
   body{
