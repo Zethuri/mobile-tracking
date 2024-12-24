@@ -8,17 +8,13 @@
 </head>
 <body>
     <section class="landingSection">
-        <div class="splash">
+        <div class="landing-section">
             <img src="./dist/images/tracking-logo2.webp" alt="tracking-logo" class="logo-img">
             <h1>Zethuri Tracker</h1>
         </div>
     </section>
 
-      <script>
-    setTimeout(() => {
-      window.location.href = 'register.html'; // Change this to your register page
-    }, 3000); // 3 seconds delay
-  </script>
+
 
 </body>
 </html>
