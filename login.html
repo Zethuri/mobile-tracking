@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+        <section class="loginSection">
+            <div class="formHolder">
+                <img src="./dist/images/tracking-logo2.webp" alt="tracking logo" class="reg-img">
+                <h2>Login</h2>
+                <form action="submit_form.php" method="POST">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="amelielaurent7622@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="********" required>
+                        <span class="toggle-password">👁</span>
+                    </div>
+                    <button type="submit" class="submit-btn">Login</button>
+                    <p class="">Don't have an account? <a href="register.html">Register</a></p>
+                </form>
+            </div>
+    </section>
+</body>
+</html>
