@@ -187,7 +187,7 @@ input {
   background: rgb(139, 35, 30);
 }
 
-@media (max-width: 390px) {
+@media (max-width: 330px) {
   body {
     display: flex;
     justify-content: center;
@@ -218,6 +218,7 @@ input {
   }
 
   .registerSection {
+    background-color: orange;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -226,6 +227,7 @@ input {
   }
 
   .formHolder {
+    background-color: green;
     width: 97%;
     display: flex;
     justify-content: center;
@@ -270,14 +272,15 @@ input {
 
   .registerSection {
     width: 100%;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 490px;
+    height: 600px;
   }
 
   .formHolder {
-    height: 480px;
+    height: 500px;
     width: 82%;
     display: flex;
     justify-content: center;
@@ -310,7 +313,7 @@ input {
 
 }
 
-@media (width: 768px)
+/* @media (width: 768px)
 {
   .registerSection{
     width: 100%;
@@ -335,4 +338,4 @@ input {
   input{
     height: 35px;
   }
-}
+} */
