@@ -320,6 +320,11 @@ input {
     margin-top: 60px;
     margin-right: 30px;
   }
+
+  .loginHolder{
+    width: 100%;
+  }
+
 }
 @media (max-width: 460px) {
   .landingSection {
@@ -379,6 +384,10 @@ input {
   .toggle-password {
     margin-top: 36px;
     margin-right: 56px;
+  }
+
+  .loginHolder{
+    width: 100%;
   }
 
 }
