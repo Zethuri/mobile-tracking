@@ -321,6 +321,10 @@ input {
     margin-right: 30px;
   }
 
+    .loginSection{
+    margin-top: 20px;
+  }
+
   .loginHolder{
     width: 100%;
   }
@@ -384,6 +388,10 @@ input {
   .toggle-password {
     margin-top: 36px;
     margin-right: 56px;
+  }
+
+  .loginSection{
+    margin-top: 20px;
   }
 
   .loginHolder{
