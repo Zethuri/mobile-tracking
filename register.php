@@ -11,6 +11,21 @@
             <div class="formHolder">
                 <img src="./dist/images/tracking-logo2.webp" alt="tracking logo" class="reg-img">
                 <h2>Create an account</h2>
+
+                <?php
+                
+                if(isset($error))
+                {
+                    echo "<div class = 'error'> $error </div>";
+                }
+                
+                if(isset($success))
+                {
+                    echo "<div class = 'success'> $success </div>";
+                }
+                
+                
+                ?>
                 <form action="proc-register.php" method="POST">
                     <div class="form-group">
                         <label for="full-name">Full name</label>
@@ -27,7 +42,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Confirm Password</label>
-                        <input type="password" id="password" name="password" placeholder="********" required>
+                        <input type="password" id="password" name="confirm_password" placeholder="********" required>
                         <span class="toggle-password">👁</span>
                     </div>
                     <button type="submit" class="submit-btn">Submit</button>
