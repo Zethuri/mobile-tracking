@@ -11,17 +11,27 @@
             <div class="loginHolder">
                 <img src="./dist/images/tracking-logo2.webp" alt="tracking logo" class="log-img">
                 <h2>Login</h2>
-                <form action="submit_form.php" method="POST" class="login-form">
+                <?php
+                
+                    if (isset($error)) {
+                        echo "<div class = 'error'> $error . </div>";
+                    }
+                    if (isset($success)) {
+                        echo "<div class = 'success'> $success . </div>";
+                    }
+                
+                ?>
+                <form action="proc-login.php" method="POST" class="login-form">
                     <div class="login-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="amelielaurent7622@gmail.com"  class="logInput" required>
+                        <input type="email" id="email" name="mt_email" placeholder="amelielaurent7622@gmail.com"  class="logInput">
                     </div>
                     <div class="login-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="********" class="logInput" required>
+                        <input type="password" id="password" name="mt_password" placeholder="********" class="logInput">
                     </div>
                     <button type="submit" class="login-btn">Login</button>
-                    <p class="">Don't have an account? <a href="register.html">Register</a></p>
+                    <p class="">Don't have an account? <a href="register.php">Register</a></p>
                 </form>
             </div>
     </section>

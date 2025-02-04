@@ -140,6 +140,15 @@ form {
   height: 350px;
 }
 
+.error{
+  font-size: 17px;
+  color: red;
+}
+.success{
+  font-size: 17px;
+  color: green;
+}
+
 label {
   display: block;
   font-size: 14px;

@@ -11,10 +11,10 @@
             <div class="formHolder">
                 <img src="./dist/images/tracking-logo2.webp" alt="tracking logo" class="reg-img">
                 <h2>Create an account</h2>
-                <form action="submit_form.php" method="POST">
+                <form action="proc-register.php" method="POST">
                     <div class="form-group">
                         <label for="full-name">Full name</label>
-                        <input type="text" id="full-name" name="full-name" placeholder="Amélie Laurent" required>
+                        <input type="text" id="full-name" name="fullname" placeholder="Amélie Laurent" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -31,7 +31,7 @@
                         <span class="toggle-password">👁</span>
                     </div>
                     <button type="submit" class="submit-btn">Submit</button>
-                    <p class="">Already have an account? <a href="login.html">Login</a></p>
+                    <p class="">Already have an account? <a href="login.php">Login</a></p>
                 </form>
             </div>
     </section>
