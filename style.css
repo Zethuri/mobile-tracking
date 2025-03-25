@@ -78,8 +78,8 @@ body {
 }
 
 .registerSection {
-  height: 630px;
-  width: 90%;
+  height: 670px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,7 +92,8 @@ body {
 }
 
 .formHolder {
-  background-color: rgb(223, 241, 232);
+  background-color: rgb(226, 233, 228);
+  opacity: 90%;
   height: 600px;
   width: 78%;
   display: flex;
@@ -140,11 +141,11 @@ form {
   height: 350px;
 }
 
-.error{
+.error {
   font-size: 17px;
   color: red;
 }
-.success{
+.success {
   font-size: 17px;
   color: green;
 }
@@ -179,17 +180,20 @@ input {
   color: #999;
 }
 
-.loginSection{
+
+
+.loginSection {
   height: 530px;
   width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 45px;
 }
 
-.loginHolder{
-  background-color: rgb(223, 241, 232);
+.loginHolder {
+  background-color: rgb(218, 228, 223);
   height: 480px;
   width: 60%;
   display: flex;
@@ -200,17 +204,17 @@ input {
   gap: 20px;
 }
 
-.log-img{
+.log-img {
   width: 15%;
   height: 75px;
   margin-top: 35px;
 }
 
-.logInput{
+.logInput {
   width: 90%;
 }
 
-.login-form{
+.login-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -245,7 +249,7 @@ input {
   background: rgb(139, 35, 30);
 }
 
-.login-btn:hover{
+.login-btn:hover {
   background: rgb(139, 35, 30);
 }
 
@@ -314,7 +318,7 @@ input {
     height: 490px;
   }
 
-  .formHolder h2{
+  .formHolder h2 {
     font-size: 13px !important;
   }
 
@@ -330,14 +334,13 @@ input {
     margin-right: 30px;
   }
 
-    .loginSection{
-    margin-top: 20px;
+  .loginSection {
+    margin-top: 40px;
   }
 
-  .loginHolder{
+  .loginHolder {
     width: 100%;
   }
-
 }
 @media (max-width: 460px) {
   .landingSection {
@@ -387,26 +390,24 @@ input {
     font-size: 15px;
   }
 
-    input {
+  input {
     width: 90%;
     font-size: 12px;
     color: #333;
   }
 
-  
   .toggle-password {
     margin-top: 36px;
     margin-right: 56px;
   }
 
-  .loginSection{
+  .loginSection {
     margin-top: 20px;
   }
 
-  .loginHolder{
+  .loginHolder {
     width: 100%;
   }
-
 }
 
 /* @media (width: 768px)

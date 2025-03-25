@@ -2,9 +2,6 @@
 
 // session_start();
 
-include("conn.php");
-
-
 // if(!isset($_SESSION['valid_user']))
 // {
 //     $admin_error = "Your session has timed out, please log in again.";
@@ -12,7 +9,11 @@ include("conn.php");
 //     exit;
 // }
 
+// $username = $_SESSION['valid_user'];
+
 ?>
+
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -22,7 +23,7 @@ include("conn.php");
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Stars and Bloom - Admin Page</title>
+        <title>Stars and Bloom Admin - Profile Page</title>
 
         <!-- CSS FILES -->      
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,9 +36,8 @@ include("conn.php");
 
         <link href="css/bootstrap-icons.css" rel="stylesheet">
 
-        <link href="css/apexcharts.css" rel="stylesheet">
-
         <link href="css/tooplate-mini-finance.css" rel="stylesheet">
+
 <!--
 
 Tooplate 2135 Stars and Bloom 
@@ -61,7 +61,7 @@ Bootstrap 5 Courses Admin Template
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+            
             <form class="custom-form header-form ms-lg-3 ms-md-3 me-lg-auto me-md-auto order-2 order-lg-0 order-md-0" action="#" method="get" role="form">
                 <input class="form-control" name="search" type="text" placeholder="Search" aria-label="Search">
             </form>
@@ -178,7 +178,7 @@ Bootstrap 5 Courses Admin Template
                     </div>
 
                     <div class="dropdown px-3">
-                        <a class="nav-link dropdown-toggle" href="profile.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="images/medium-shot-happy-man-smiling.jpg" class="profile-image img-fluid" alt="">
                         </a>
                         <ul class="dropdown-menu bg-white shadow">
@@ -224,111 +224,131 @@ Bootstrap 5 Courses Admin Template
                 <?php
                     include("nav.php");
                 ?>
-
                 <main class="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start">
                     <div class="title-group mb-3">
-                        <h1 class="h2 mb-0">Analytics</h1>
+                        <h1 class="h2 mb-0">Profile</h1>
                     </div>
 
                     <div class="row my-4">
-                        <div class="col-lg-12 col-12">
-                            <div class="custom-block bg-white">
-                                <h5 class="mb-4">Weekly Analytics</h5>
+                        <div class="col-lg-7 col-12">
+                            <div class="custom-block custom-block-profile">
+                                <div class="row">
+                                    <div class="col-lg-12 col-12 mb-3">
+                                        <h6>General</h6>
+                                    </div>
 
-                                <div class="table-responsive">
-            <table class="account-table table">
-                <thead>
-                    <tr>
-                        <th scope="col">Date</th>
+                                    <div class="col-lg-3 col-12 mb-4 mb-lg-0">
+                                        <div class="custom-block-profile-image-wrap">
+                                            <img src="images/medium-shot-happy-man-smiling.jpg" class="custom-block-profile-image img-fluid" alt="">
 
-                        <th scope="col">Fullname</th>
+                                            <a href="setting.php" class="bi-pencil-square custom-block-edit-icon"></a>
+                                        </div>
+                                    </div>
 
-                        <th scope="col">Email</th>
+                                    <div class="col-lg-9 col-12">
+                                        <p class="d-flex flex-wrap mb-2">
+                                            <strong>Name:</strong>
 
-                        <th scope="col">Courses</th>
+                                            <span><?php echo $username;?></span>
+                                        </p>
 
-                        <th scope="col">Action</th>
+                                        <p class="d-flex flex-wrap mb-2">
+                                            <strong>Email:</strong>
+                                            
+                                            <a href="#">
+                                                thomas@site.com
+                                            </a>
+                                        </p>
 
-                    </tr>
-                </thead>
+                                        <p class="d-flex flex-wrap mb-2">
+                                            <strong>Phone:</strong>
 
-                        <tbody>
+                                            <a href="#">
+                                                (60) 12 345 6789
+                                            </a>
+                                        </p>
 
+                                        <p class="d-flex flex-wrap mb-2">
+                                            <strong>Birthday:</strong>
 
-                <?php 
-                    $query = "select * from participant order by id desc";
-                    $result = mysqli_query($conn,$query);
-                    $num = mysqli_num_rows($result);
-                    for($i=0; $i<$num; $i++)
-                    {
-                        $row = mysqli_fetch_array($result);
-                ?>
+                                            <span>March 5, 1992</span>
+                                        </p>
 
-                    <tr>
-                        <td scope="row"><?php echo $row['date']; ?></td>
+                                        <p class="d-flex flex-wrap">
+                                            <strong>Address:</strong>
 
-                        <td scope="row"><?php echo $row['fullname']; ?></td>
+                                            <span>551 Swanston Street, Melbourne</span>
+                                        </p>
 
-                        <td scope="row"><?php echo $row['email']; ?></td>
+                                        <style>
+                                            .updateButton{
+                                                margin-top: 20px;
+                                                background-color: red;
+                                                color: white;
+                                                font-size: 14px;
+                                                border-radius: 10px;
+                                            }
+                                        </style>
 
-                        <td scope="row"><?php echo $row['phone']; ?></td>
-
-
-                        <td scope="row">
-                        <a href="delete-participant.php?id=<?php echo $row['id']; ?>&name=<?php echo $row['fullname']; ?>" onclick="return confirm('Are you sure you want to delete <?php echo $row['fullname']; ?>?');"> <span class="badge text-bg-danger">
-                                Delete
-                            </span>
-                            </a>
-                        </td>
-                    </tr>
-                        <?php } ?>
-                    
-                </tbody>
-            </table>
+                                        <a href="update-profile.php"><button class="updateButton">Update profile</button></a>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <nav aria-label="Page navigation example">
-                                        <ul class="pagination justify-content-center mb-0">
-                                            <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Previous">
-                                                    <span aria-hidden="true">Prev</span>
-                                                </a>
-                                            </li>
+                            <div class="custom-block custom-block-profile bg-white">
+                                <h6 class="mb-4">Card Information</h6>
 
-                                            <li class="page-item active" aria-current="page">
-                                                <a class="page-link" href="#">1</a>
-                                            </li>
-                                            
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">2</a>
-                                            </li>
-                                            
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">3</a>
-                                            </li>
+                                <p class="d-flex flex-wrap mb-2">
+                                    <strong>User ID:</strong>
 
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">4</a>
-                                            </li>
-                                            
-                                            <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Next">
-                                                    <span aria-hidden="true">Next</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                                    <span>012 395 8647</span>
+                                </p>
+
+                                <p class="d-flex flex-wrap mb-2">
+                                    <strong>Type:</strong>
+
+                                    <span>Personal</span>
+                                </p>
+
+                                <p class="d-flex flex-wrap mb-2">
+                                    <strong>Created:</strong>
+
+                                    <span>July 19, 2020</span>
+                                </p>
+
+                                <p class="d-flex flex-wrap mb-2">
+                                    <strong>Valid Date:</strong>
+
+                                    <span>July 18, 2032</span>
+                                </p>
                             </div>
                         </div>
-                        
 
+                        <div class="col-lg-5 col-12">
+                            <div class="custom-block custom-block-contact">
+                                <h6 class="mb-4">Still can’t find what you looking for?</h6>
+
+                                <p>
+                                    <strong>Call us:</strong>
+                                    <a href="tel: 305-240-9671" class="ms-2">
+                                        (60) 
+                                        305-240-9671
+                                    </a>
+                                </p>
+
+                                <a href="#" class="btn custom-btn custom-btn-bg-white mt-3">
+                                    Chat with us
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
                     <footer class="site-footer">
                         <div class="container">
                             <div class="row">
                                 
                                 <div class="col-lg-12 col-12">
-                                    <p class="copyright-text">Copyright © Valentine 2024
+                                    <p class="copyright-text">Copyright © Stars and Bloom  2048 
                                     - Design: <a rel="sponsored" href="https://www.tooplate.com" target="_blank">Tooplate</a></p>
                                 </div>
 
@@ -343,7 +363,7 @@ Bootstrap 5 Courses Admin Template
         <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/apexcharts.min.js"></script>
         <script src="js/custom.js"></script>
+
     </body>
 </html>

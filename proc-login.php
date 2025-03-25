@@ -19,11 +19,11 @@ if(!$email || !$password)
 $query = "select * from login where email = '$email' and password = '$password'";
 $result = mysqli_query($conn, $query);
 $num = mysqli_num_rows($result);
-$row = mysqli_fetch_array($result);
+$row = mysqli_fetch_array($result); 
 
 if($num > 0)
 {
-    header("Location: dashbord.php");
+    header("Location: dashboard.php");
     exit; 
 }
 

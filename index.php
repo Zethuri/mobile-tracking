@@ -17,7 +17,7 @@
 
       <script>
     setTimeout(() => {
-      window.location.href = 'register.php'; // Change this to your register page
+      window.location.href = 'login.php'; // Change this to your register page
     }, 3000); // 3 seconds delay
   </script>
 
