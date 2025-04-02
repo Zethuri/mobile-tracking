@@ -1,120 +1,72 @@
 <!DOCTYPE html>
-<!--
- @license
- Copyright 2019 Google LLC. All Rights Reserved.
- SPDX-License-Identifier: Apache-2.0
--->
-<html>
-  <head>
-    <style>
-      /**
-       * @license
-       * Copyright 2019 Google LLC. All Rights Reserved.
-       * SPDX-License-Identifier: Apache-2.0
-       */
-      /** 
-       * Always set the map height explicitly to define the size of the div element
-       * that contains the map. 
-       */
-      #map {
-        height: 100%;
-      }
+<html lang="en">
+<head>
+    <title>Live Location Tracking</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+</head>
+<body>
 
-      /* Optional: Makes the sample page fill the window. */
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+<div id="map" style="width: 100%; height: 500px;"></div>
 
-      .custom-map-control-button {
-        background-color: #fff;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 10px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        height: 40px;
-        cursor: pointer;
-      }
-      .custom-map-control-button:hover {
-        background: rgb(235, 235, 235);
-      }
-    </style>
-    <title>Geolocation</title>
-    <script>
-      /**
-       * @license
-       * Copyright 2019 Google LLC. All Rights Reserved.
-       * SPDX-License-Identifier: Apache-2.0
-       */
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-      let map, infoWindow;
+<script>
+let map, userMarker;
+let contactMarkers = {};
 
-      function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: -34.397, lng: 150.644 },
-          zoom: 6,
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 0, lng: 0 },
+        zoom: 15
+    });
+
+    getUserLocation();
+    setInterval(getCloseContacts, 5000); // Fetch contacts every 5 sec
+}
+
+function getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(position => {
+            let userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+
+            if (!userMarker) {
+                userMarker = new google.maps.Marker({
+                    position: userLocation,
+                    map: map,
+                    title: "You",
+                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                });
+            } else {
+                userMarker.setPosition(userLocation);
+            }
+
+            map.setCenter(userLocation);
         });
-        infoWindow = new google.maps.InfoWindow();
+    }
+}
 
-        const locationButton = document.createElement("button");
+function getCloseContacts() {
+    fetch("get_contacts.php")
+        .then(response => response.json())
+        .then(contacts => {
+            contacts.forEach(contact => {
+                let contactLocation = { lat: parseFloat(contact.latitude), lng: parseFloat(contact.longitude) };
 
-        locationButton.textContent = "Pan to Current Location";
-        locationButton.classList.add("custom-map-control-button");
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(
-          locationButton
-        );
-        locationButton.addEventListener("click", () => {
-          // Try HTML5 geolocation.
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              (position) => {
-                const pos = {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude,
-                };
+                if (!contactMarkers[contact.name]) {
+                    contactMarkers[contact.name] = new google.maps.Marker({
+                        position: contactLocation,
+                        map: map,
+                        title: contact.name,
+                        icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                    });
+                } else {
+                    contactMarkers[contact.name].setPosition(contactLocation);
+                }
+            });
+        })
+        .catch(error => console.error("Error fetching contacts:", error));
+}
 
-                infoWindow.setPosition(pos);
-                infoWindow.setContent("Location found.");
-                infoWindow.open(map);
-                map.setCenter(pos);
-              },
-              () => {
-                handleLocationError(true, infoWindow, map.getCenter());
-              }
-            );
-          } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-          }
-        });
-      }
+window.onload = initMap;
+</script>
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(
-          browserHasGeolocation
-            ? "Error: The Geolocation service failed."
-            : "Error: Your browser doesn't support geolocation."
-        );
-        infoWindow.open(map);
-      }
-
-      window.initMap = initMap;
-    </script>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=INSERT_YOUR_API_KEY&callback=initMap&v=weekly&solution_channel=GMP_CCS_geolocation_v2"
-      defer
-    ></script>
-  </body>
+</body>
 </html>

@@ -16,7 +16,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="profile.php">
+                                <a class="nav-link" href="close-contacts.php">
                                     <i class="bi-person me-2"></i>
                                     Close Contacts
                                 </a>

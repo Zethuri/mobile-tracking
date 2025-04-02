@@ -1,14 +1,20 @@
 <?php
 
-// session_start();
+session_start();
 include 'conn.php';
 
-// if(!isset($_SESSION['valid_user']))
-// {
-//     $admin_error = "Your session has timed out, please log in again.";
-//     include("login.php");
-//     exit;
-// }
+if(!isset($_SESSION['valid_user']))
+{
+    $admin_error = "Your session has timed out, please log in again.";
+    include("login.php");
+    exit;
+}
+
+$email= $_SESSION['valid_user'];
+
+$query = "select * from users where email = '$email' "; 
+$result = mysqli_query($conn,$query);
+$row = mysqli_fetch_array($result);
 
 // $username = $_SESSION['valid_user'];
 
@@ -250,7 +256,7 @@ Bootstrap 5 Courses Admin Template
                                         <p class="d-flex flex-wrap mb-2">
                                             <strong>Name:</strong>
 
-                                            <span><?php echo $username;?></span>
+                                            <span><?php echo $row['fullname'];?></span>
                                         </p>
 
                                         <p class="d-flex flex-wrap mb-2">
@@ -332,16 +338,31 @@ Bootstrap 5 Courses Admin Template
 
                             <div class="custom-block custom-block-profile bg-white">
                                 <h6 class="mb-4">Update Profile</h6>
+
+                                <?php
+                                
+                                if(isset($error))
+                                {
+                                    echo "<div class = 'alert alert-danger' style = 'text-align: center;'> $error </div>";
+                    
+                                }
+                                if(isset($success))
+                                {
+                                    echo "<div class = 'alert alert-success' style = 'text-align: center;'> $success </div>";
+                    
+                                }
+                                
+                                ?>
                                 <div class="updateProfile">
-                                    <form action="" class="updateForm">
-                                        <label for="firstname"> Fullname</label>
-                                        <input type="text">
+                                    <form action="proc-update.php" class="updateForm" method="POST">
+                                        <label for="fullname"> Fullname</label>
+                                        <input type="text" name="fullname" value="<?php echo $row['fullname'];?>">
                                         <label for="phone"> Phone</label>
-                                        <input type="text">
-                                        <label for="address"> Address</label>
-                                        <input type="text">
+                                        <input type="text" name="phone" value="<?php echo $row['phone'];?>">
+                                        <label for="address"> State</label>
+                                        <input type="text" name="state" value="<?php echo $row['state'];?>">
                                         <label for="firstname"> Address</label>
-                                        <input type="text">
+                                        <input type="text" name="address" value="<?php echo $row['address'];?>">
                                         <button class="update-button">Update profile</button>
                                     </form>
                                 </div>

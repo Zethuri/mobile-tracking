@@ -1,3 +1,9 @@
+<?php
+
+error_reporting(0); // Disable all error reporting
+ini_set('display_errors', 0); // Prevent errors from being shown on the page
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +22,9 @@
                     if (isset($error)) {
                         echo "<div class = 'error'> $error . </div>";
                     }
+                    if (isset($admin_error)) {
+                        echo "<div class = 'error'> $admin_error . </div>";
+                    }
                     if (isset($success)) {
                         echo "<div class = 'success'> $success . </div>";
                     }
@@ -24,7 +33,7 @@
                 <form action="proc-login.php" method="POST" class="login-form">
                     <div class="login-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="mt_email" placeholder="amelielaurent7622@gmail.com"  class="logInput">
+                        <input type="email" id="email" name="mt_email" placeholder="amelielaurent7622@gmail.com"  class="logInput" value="<?php echo $email;?>">
                     </div>
                     <div class="login-group">
                         <label for="password">Password</label>

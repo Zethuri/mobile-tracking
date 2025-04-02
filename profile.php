@@ -264,7 +264,7 @@ Bootstrap 5 Courses Admin Template
                                             <strong>Phone:</strong>
 
                                             <a href="#">
-                                                (60) 12 345 6789
+                                                + (234) 90 127 263 47
                                             </a>
                                         </p>
 

@@ -1,13 +1,16 @@
 <?php
 
-session_start();
+// session_start();
+include 'conn.php';
 
-if(!isset($_SESSION['valid_user']))
-{
-    $admin_error = "Your session has timed out, please log in again.";
-    include("login.php");
-    exit;
-}
+//  echo $_SESSION['user_id'] = $row['id'];
+
+// if(!isset($_SESSION['valid_user']))
+// {
+//     $admin_error = "Your session has timed out, please log in again.";
+//     include("login.php");
+//     exit;
+// }
 
 ?>
 
@@ -261,7 +264,7 @@ Bootstrap 5 Courses Admin Template
 
                                     <?php
 
-                                        if(isset($pass_error)){
+                                        if(isset($error)){
                                             echo "<div class = 'stars-error'>". $error . "</div>";
                                         }
 
@@ -269,7 +272,7 @@ Bootstrap 5 Courses Admin Template
                                             echo "<div class='stars-error'>". $error_ms . "</div>";
                                         }
 
-                                        if(isset($up_success))
+                                        if(isset($success))
                                         {
                                             echo "<div class='stars-success'>". $success. "</div>";
                                         }
@@ -287,7 +290,7 @@ Bootstrap 5 Courses Admin Template
                                             <input type="password" name="new_password" id="confirm_password"  class="form-control" placeholder="New Password" required="">
 
                                             <input type="password" name="confirm_password" id="confirm_password"  class="form-control" placeholder="Confirm Password" required="">
-                                            <input type="hidden" name="id" id="confirm_password"  class="form-control" placeholder="Confirm Password" required="">
+                                            <input type="hidden" name="user_id" id="confirm_password"  class="form-control" placeholder="Confirm Password" required="" value="<?php echo $_SESSION['valid_id'] ?>">
 
                                             <div class="d-flex">
                                                 <button type="button" class="form-control me-3">
