@@ -9,7 +9,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="map.php">
+                                <a class="nav-link" href="maps.php">
                                     <i class="bi-wallet me-2"></i>
                                     Map
                                 </a>
@@ -37,7 +37,7 @@
                             </li>
 
                             <li class="nav-item border-top mt-auto pt-2">
-                                <a class="nav-link" href="logout.php">
+                                <a onClick="return confirm('Are you sure you want to logout?')" class="nav-link" href="logout.php">
                                     <i class="bi-box-arrow-left me-2"></i>
                                     Logout
                                 </a>

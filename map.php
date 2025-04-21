@@ -1,72 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Live Location Tracking</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+  <meta charset="UTF-8">
+  <title>Live Location Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
 
-<div id="map" style="width: 100%; height: 500px;"></div>
+  <div id="map"></div>
 
-<script>
-let map, userMarker;
-let contactMarkers = {};
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([0, 0], 13);
 
-function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 0, lng: 0 },
-        zoom: 15
-    });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-    getUserLocation();
-    setInterval(getCloseContacts, 5000); // Fetch contacts every 5 sec
-}
+    let userMarker;
 
-function getUserLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(position => {
-            let userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+    function updateUserLocation(position) {
+      const { latitude, longitude } = position.coords;
 
-            if (!userMarker) {
-                userMarker = new google.maps.Marker({
-                    position: userLocation,
-                    map: map,
-                    title: "You",
-                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                });
-            } else {
-                userMarker.setPosition(userLocation);
-            }
+      if (userMarker) {
+        userMarker.setLatLng([latitude, longitude]);
+      } else {
+        userMarker = L.marker([latitude, longitude])
+          .addTo(map)
+          .bindPopup('You are here')
+          .openPopup();
+      }
 
-            map.setCenter(userLocation);
-        });
+      map.setView([latitude, longitude], 15);
     }
-}
 
-function getCloseContacts() {
-    fetch("get_contacts.php")
-        .then(response => response.json())
-        .then(contacts => {
-            contacts.forEach(contact => {
-                let contactLocation = { lat: parseFloat(contact.latitude), lng: parseFloat(contact.longitude) };
+    function showError(error) {
+      alert('Error getting location: ' + error.message);
+    }
 
-                if (!contactMarkers[contact.name]) {
-                    contactMarkers[contact.name] = new google.maps.Marker({
-                        position: contactLocation,
-                        map: map,
-                        title: contact.name,
-                        icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-                    });
-                } else {
-                    contactMarkers[contact.name].setPosition(contactLocation);
-                }
-            });
-        })
-        .catch(error => console.error("Error fetching contacts:", error));
-}
+    navigator.geolocation.watchPosition(updateUserLocation, showError, {
+  enableHighAccuracy: true,  // ✅ use GPS if available
+  maximumAge: 0,             // don't use cached location
+  timeout: 10000             // wait max 10 seconds
+});
 
-window.onload = initMap;
-</script>
-
+  </script>
 </body>
 </html>

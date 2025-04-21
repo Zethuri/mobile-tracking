@@ -1,0 +1,89 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Real-Time Location</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+e2nBM+3ZfhrkPoy9x6K0VqFVGz24Z8D8NJWo4PzI="
+    crossorigin=""
+  />
+
+  <style>
+ html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-oC1GqXrC8W+jWqgqOk4cvQHTRtxuD9B8c6eT9FPzu9o="
+    crossorigin=""
+  ></script>
+
+  <script>
+    let map, marker;
+
+    function initMap() {
+      console.log("Map loading...");
+
+      map = L.map('map').setView([9.0820, 8.6753], 6); // Nigeria center
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(
+          (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            const userLatLng = [lat, lng];
+
+            if (!marker) {
+              marker = L.marker(userLatLng).addTo(map).bindPopup("You're here").openPopup();
+            } else {
+              marker.setLatLng(userLatLng);
+            }
+
+            map.setView(userLatLng, 15);
+          },
+          (error) => {
+            console.error("Location error:", error);
+            alert("Failed to get location.");
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0,
+          }
+        );
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    // Run the map
+    initMap();
+  </script>
+</body>
+</html>

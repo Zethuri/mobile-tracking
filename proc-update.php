@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+session_start();
+error_reporting(0);
+ini_set('display_errors', 0);
 
 include 'conn.php';
 
@@ -9,13 +10,15 @@ $phone = $_POST['phone'];
 $state = $_POST['state'];
 $address = $_POST['address'];
 
+$email = $_POST['user_email'];
+
 if (!$fullname || !$phone || !$state || !$address) {
     $error = 'Fill in the fields correctly';
     include 'update-profile.php';
     exit;
 }
 
-echo $query = "update users set fullname ='$fullname', phone ='$phone', state ='$state', address='$address'"; exit;
+$query = "update users set fullname ='$fullname', phone ='$phone', state ='$state', address='$address' where email='$email'"; 
 $result = mysqli_query($conn,$query);
 
 if($result)

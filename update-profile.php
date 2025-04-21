@@ -251,7 +251,7 @@ Bootstrap 5 Courses Admin Template
                                             <a href="setting.php" class="bi-pencil-square custom-block-edit-icon"></a>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="col-lg-9 col-12">
                                         <p class="d-flex flex-wrap mb-2">
                                             <strong>Name:</strong>
@@ -263,7 +263,7 @@ Bootstrap 5 Courses Admin Template
                                             <strong>Email:</strong>
                                             
                                             <a href="#">
-                                                thomas@site.com
+                                                <?php echo $row['email'];?>
                                             </a>
                                         </p>
 
@@ -271,7 +271,7 @@ Bootstrap 5 Courses Admin Template
                                             <strong>Phone:</strong>
 
                                             <a href="#">
-                                                (60) 12 345 6789
+                                                <?php echo $row ['phone'];?>
                                             </a>
                                         </p>
 
@@ -284,7 +284,7 @@ Bootstrap 5 Courses Admin Template
                                         <p class="d-flex flex-wrap">
                                             <strong>Address:</strong>
 
-                                            <span>551 Swanston Street, Melbourne</span>
+                                            <span><?php echo $row['address'];?></span>
                                         </p>
 
                                         <style>
@@ -363,6 +363,8 @@ Bootstrap 5 Courses Admin Template
                                         <input type="text" name="state" value="<?php echo $row['state'];?>">
                                         <label for="firstname"> Address</label>
                                         <input type="text" name="address" value="<?php echo $row['address'];?>">
+                                        <input type="hidden" name="user_email" value="<?php echo $_SESSION['valid_user'];?>">
+
                                         <button class="update-button">Update profile</button>
                                     </form>
                                 </div>

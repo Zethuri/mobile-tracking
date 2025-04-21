@@ -1,6 +1,8 @@
 <?php
-
 session_start();
+include 'conn.php';
+
+
 
 
 if(!isset($_SESSION['valid_user']))
@@ -9,6 +11,8 @@ if(!isset($_SESSION['valid_user']))
     include("login.php");
     exit;
 }
+
+$email = $_SESSION['valid_user'];
 
 // $username = $_SESSION['valid_user'];
 
@@ -24,7 +28,7 @@ if(!isset($_SESSION['valid_user']))
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Stars and Bloom Admin - Profile Page</title>
+        <title>Mobile Tracker - Close Contact Page</title>
 
         <!-- CSS FILES -->      
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -240,15 +244,16 @@ Bootstrap 5 Courses Admin Template
                                             echo "<div class= 'alert alert-danger' style ='text-align: center;'>  $error  </div>";
                                         }
                                         if (isset($success)) {
-                                            echo "<div class= 'alert alert-success' style ='text-align: center;'>  $error  </div>";
+                                            echo "<div class= 'alert alert-success' style ='text-align: center;'>  $success  </div>";
                                         }
                                     
                                     ?>
-                                    <form action="proc-contact.php" class="updateForm">
+                                    <form action="proc-contact.php" class="updateForm" method="post">
                                         <label for="fullname"> Fullname</label>
                                         <input type="text" name="fullname">
                                         <label for="phone"> Phone</label>
                                         <input type="text" name="phone">
+                                        <input type="hidden" name="user_email" id="user_id"  class="form-control" placeholder="Confirm Password" required="" value="<?php echo $_SESSION['valid_user']; ?>">
 
                                         <button class="update-button">Add Close Contact</button>
                                     </form>
@@ -305,61 +310,47 @@ Bootstrap 5 Courses Admin Template
                                             }
                                         </style>
                             <div class="custom-block custom-block-profile bg-white">
-                                <div>
+                            <?php
+                            $query_chk= "select * from close_contact where user_email = '$email'";
+                            $result_chk = mysqli_query($conn, $query_chk);
+                            $num_chk = mysqli_num_rows($result_chk);
+                            for ($i=0; $i < $num_chk; $i++) { 
+                                $row = mysqli_fetch_array($result_chk);
+                            
+                            ?>    
+                            
+                            <div class="close-contacts">
                                     <h6 class="mb-4">Close Contacts</h6>
 
                                     <p class="d-flex flex-wrap mb-2">
                                         <strong>User ID:</strong>
 
-                                        <span>012 395 8647</span>
+                                        <span><?php echo $row['user_id'];?></span>
                                     </p>
 
                                     <p class="d-flex flex-wrap mb-2">
                                         <strong>Fullname:</strong>
 
-                                        <span>Personal</span>
+                                        <span><?php echo $row['contact_name'];?></span>
                                     </p>
 
                                     <p class="d-flex flex-wrap mb-2">
-                                        <strong>Created:</strong>
+                                        <strong>Phone:</strong>
 
-                                        <span>July 19, 2020</span>
+                                        <span><?php echo $row['contact_phone'];?></span>
                                     </p>
 
                                     <p class="d-flex flex-wrap mb-2">
-                                        <strong>Valid Date:</strong>
+                                        <strong>Date Created:</strong>
 
-                                        <span>July 18, 2032</span>
+                                        <span><?php echo $row['date_created'];?></span>
                                     </p>
+                                    <!-- <button class="update-button">Delete</button> -->
 
-                                    
-                                    <div class="close-contacts">
-                                        <h6 class="mb-4">Close Contacts</h6>
-
-                                        <p class="d-flex flex-wrap mb-2">
-                                            <strong>User ID:</strong>
-
-                                            <span>012 395 8647</span>
-                                        </p>
-
-                                        <p class="d-flex flex-wrap mb-2">
-                                            <strong>Fullname:</strong>
-
-                                            <span>Personal</span>
-                                        </p>
-
-                                        <p class="d-flex flex-wrap mb-2">
-                                            <strong>Created:</strong>
-
-                                            <span>July 19, 2020</span>
-                                        </p>
-
-                                        <p class="d-flex flex-wrap mb-2">
-                                            <strong>Valid Date:</strong>
-
-                                            <span>July 18, 2032</span>
-                                        </p>
+                                    <a onClick="return confirm('Are you sure you want to delete this user?');" href="del_btn.php?id=<?php echo base64_encode($row['id']); ?>"><input type="button" class="update-button" value="Delete" /></a>
                                     </div>
+                                    
+                                   <?php }?>
                                 </div>
                                 
                             </div>

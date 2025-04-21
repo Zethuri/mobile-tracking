@@ -1,15 +1,17 @@
 <?php
 
-// session_start();
+session_start();
 
-// if(!isset($_SESSION['valid_user']))
-// {
-//     $admin_error = "Your session has timed out, please log in again.";
-//     include("login.php");
-//     exit;
-// }
+include 'conn.php';
 
-// $username = $_SESSION['valid_user'];
+if(!isset($_SESSION['valid_user']))
+{
+    $admin_error = "Your session has timed out, please log in again.";
+    include("login.php");
+    exit;
+}
+
+ $email = $_SESSION['valid_user'] ;
 
 ?>
 
@@ -245,18 +247,27 @@ Bootstrap 5 Courses Admin Template
                                         </div>
                                     </div>
 
+                                    <?php
+                                    
+                                    $query = "select * from users where email = '$email' ";
+                                    $result = mysqli_query($conn, $query);
+                                    $row = mysqli_fetch_array($result);
+                                    
+                                    
+                                    ?>
+
                                     <div class="col-lg-9 col-12">
                                         <p class="d-flex flex-wrap mb-2">
                                             <strong>Name:</strong>
 
-                                            <span><?php echo $username;?></span>
+                                            <span><?php echo $row['fullname'];?></span>
                                         </p>
 
                                         <p class="d-flex flex-wrap mb-2">
                                             <strong>Email:</strong>
                                             
                                             <a href="#">
-                                                thomas@site.com
+                                                <?php echo $row['email'];?>
                                             </a>
                                         </p>
 
@@ -264,7 +275,7 @@ Bootstrap 5 Courses Admin Template
                                             <strong>Phone:</strong>
 
                                             <a href="#">
-                                                + (234) 90 127 263 47
+                                                <?php echo $row['phone'];?>
                                             </a>
                                         </p>
 
@@ -277,7 +288,7 @@ Bootstrap 5 Courses Admin Template
                                         <p class="d-flex flex-wrap">
                                             <strong>Address:</strong>
 
-                                            <span>551 Swanston Street, Melbourne</span>
+                                            <span><?php echo $row['address'];?></span>
                                         </p>
 
                                         <style>
